@@ -1,0 +1,13 @@
+import socket  # Python tool for scanning open ports & detecting devices.
+
+def scan_ports(ip, start_port, end_port):
+    print(f"Scanning ports on {ip} from {start_port} to {end_port}")
+    for port in range(start_port, end_port + 1):  # Loop through the ports
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(0.5)  # Limit how long we wait for a response
+            if s.connect_ex((ip, port)) == 0:  # Check if the port is open
+                print(f"Port {port} is open")
+
+if __name__ == "__main__":
+    target_ip = input("Enter the IP address to scan: ")  # Ask the user for an IP
+    scan_ports(target_ip, 1, 1024)  # Scan the first 1024 ports
